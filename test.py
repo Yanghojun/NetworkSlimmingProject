@@ -151,7 +151,11 @@ if __name__ == '__main__':
                     100. * batch_idx / len(train_loader), loss.data))
 
     def test():
-        model = models.vgg(dataset='cifar100')
+        if args.dataset =='cifar100':
+            model = models.vgg(dataset='cifar100')
+        elif args.dataset =='cifar10':
+            model = models.vgg(dataset='cifar10')
+            
         model.cuda()
         print(model)
         # checkpoint = torch.load('logs/checkpoint.pth.tar')
