@@ -72,8 +72,9 @@ if __name__ == "__main__":
         if isinstance(m, nn.BatchNorm2d):
             weight_copy = m.weight.data.abs().clone()
 
-            # mask = weight_copy.gt(thre).float().cuda()    #호준수정 이거!?
-            mask = weight_copy.cuda()
+            mask = weight_copy.gt(thre).float().cuda()    #호준수정 이거!?
+            # mask = weight_copy.gt(thre).cuda()
+            # mask = weight_copy.cuda()
 
             pruned = pruned + mask.shape[0] - torch.sum(mask)
             m.weight.data.mul_(mask)

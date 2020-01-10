@@ -15,6 +15,7 @@ import models
 if __name__ == '__main__':
     # Training settings
     parser = argparse.ArgumentParser(description='PyTorch Slimming CIFAR training')
+    parser.add_argument('--weight', type=str, help='Weight file path')
     parser.add_argument('--dataset', type=str, default='cifar100',
                         help='training dataset (default: cifar100)')
     parser.add_argument('--sparsity-regularization', '-sr', dest='sr', action='store_true',
@@ -154,14 +155,25 @@ if __name__ == '__main__':
         model.cuda()
         print(model)
         # checkpoint = torch.load('logs/checkpoint.pth.tar')
-        model.load_state_dict(torch.load('logs/checkpoint.pth.tar')['state_dict'])
+
+        # 매개변수 파일 이름 변경
+        # model.load_state_dict(torch.load('logs/checkpoint.pth.tar')['state_dict'])
+        # model.load_state_dict(torch.load('logs/vgg_baseline_epoch160_accuracy72.tar')['state_dict'])
+        model.load_state_dict(torch.load(args.weight)['state_dict'])
 
         print("Model's state_dict:")
         for param_tensor in model.state_dict():
             print(param_tensor, "\t", model.state_dict()[param_tensor].size())
 
-        optimizer.load_state_dict((torch.load('logs/checkpoint.pth.tar')['optimizer']))
-        epoch = torch.load('logs/checkpoint.pth.tar')['epoch']
+        # 매개변수 파일 이름 변경
+        # optimizer.load_state_dict((torch.load('logs/checkpoint.pth.tar')['optimizer']))
+        # optimizer.load_state_dict((torch.load('logs/vgg_baseline_epoch160_accuracy72.tar')['optimizer']))
+        # optimizer.load_state_dict((torch.load(args.weight)['optimizer']))
+
+        # 매개변수 파일 이름 변경
+        # epoch = torch.load('logs/checkpoint.pth.tar')['epoch']
+        # epoch = torch.load('logs/vgg_baseline_epoch160_accuracy72.tar')['epoch']
+        # epoch = torch.load(args.weight)['epoch']
         # loss = torch.load('logs/checkpoint.pth.tar')['loss']
 
 
